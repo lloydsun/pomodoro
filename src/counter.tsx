@@ -61,7 +61,7 @@ class Counter extends React.Component<CounterProps, CounterState> {
     this.setState({
       active: false
     })
-    clearInterval(this.interval)
+    this.clear()
   }
 
   resetCounter() {
@@ -69,26 +69,24 @@ class Counter extends React.Component<CounterProps, CounterState> {
       seconds: this.state.init_seconds,
       active: false
     })
+    this.clear()
+  }
+
+  clear() {
     clearInterval(this.interval)
   }
 
-  // function start timer
-
-  // when this.active is ture then start the counter every 1 second
-
-  // create a button function that will be called every second
 
   render() {
     let remain_seconds = this.state.seconds
-
-
 
     return (
       <div>
         <p>{this.secondsToMinutes(remain_seconds)}</p>
         <div>
           <button onClick={() => this.state.active ? this.stopCounter() : this.startCounter()}>{this.state.active ? '暂停' : '开始'}</button>
-          <button onClick={() => this.resetCounter()}>重置</button></div>
+          <button onClick={() => this.resetCounter()}>重置</button>
+        </div>
       </div>
 
     )
