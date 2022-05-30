@@ -81,8 +81,8 @@ class Counter extends React.Component<CounterProps, CounterState> {
     let remain_seconds = this.state.seconds
 
     return (
-      <div>
-        <p>{this.secondsToMinutes(remain_seconds)}</p>
+      <div className='counter-wrapper'>
+        <div className='counter'>{this.secondsToMinutes(remain_seconds)}</div>
         <div>
           <button onClick={() => this.state.active ? this.stopCounter() : this.startCounter()}>{this.state.active ? '暂停' : '开始'}</button>
           <button onClick={() => this.resetCounter()}>重置</button>

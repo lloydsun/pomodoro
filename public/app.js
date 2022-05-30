@@ -2290,9 +2290,9 @@
           if (typeof __REACT_DEVTOOLS_GLOBAL_HOOK__ !== "undefined" && typeof __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStart === "function") {
             __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStart(new Error());
           }
-          var React3 = require_react();
+          var React4 = require_react();
           var Scheduler = require_scheduler();
-          var ReactSharedInternals = React3.__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED;
+          var ReactSharedInternals = React4.__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED;
           var suppressWarning = false;
           function setSuppressWarning(newSuppressWarning) {
             {
@@ -3693,7 +3693,7 @@
             {
               if (props.value == null) {
                 if (typeof props.children === "object" && props.children !== null) {
-                  React3.Children.forEach(props.children, function(child) {
+                  React4.Children.forEach(props.children, function(child) {
                     if (child == null) {
                       return;
                     }
@@ -11265,7 +11265,7 @@
             }
           }
           var fakeInternalInstance = {};
-          var emptyRefsObject = new React3.Component().refs;
+          var emptyRefsObject = new React4.Component().refs;
           var didWarnAboutStateAssignmentForComponent;
           var didWarnAboutUninitializedState;
           var didWarnAboutGetSnapshotBeforeUpdateWithoutDidUpdate;
@@ -22559,9 +22559,12 @@
 
   // src/index.tsx
   var import_client = __toESM(require_client());
+  var import_react3 = __toESM(require_react());
+
+  // src/view/process.tsx
   var import_react2 = __toESM(require_react());
 
-  // src/counter.tsx
+  // src/components/counter.tsx
   var import_react = __toESM(require_react());
   var Counter = class extends import_react.default.Component {
     constructor(props) {
@@ -22588,6 +22591,8 @@
           this.setState({
             seconds: this.state.seconds - 1
           });
+        } else {
+          this.resetCounter();
         }
       }
     }
@@ -22601,18 +22606,25 @@
       this.setState({
         active: false
       });
-      clearInterval(this.interval);
+      this.clear();
     }
     resetCounter() {
       this.setState({
         seconds: this.state.init_seconds,
         active: false
       });
+      this.clear();
+    }
+    clear() {
       clearInterval(this.interval);
     }
     render() {
       let remain_seconds = this.state.seconds;
-      return /* @__PURE__ */ import_react.default.createElement("div", null, /* @__PURE__ */ import_react.default.createElement("p", null, this.secondsToMinutes(remain_seconds)), /* @__PURE__ */ import_react.default.createElement("div", null, /* @__PURE__ */ import_react.default.createElement("button", {
+      return /* @__PURE__ */ import_react.default.createElement("div", {
+        className: "counter-wrapper"
+      }, /* @__PURE__ */ import_react.default.createElement("div", {
+        className: "counter"
+      }, this.secondsToMinutes(remain_seconds)), /* @__PURE__ */ import_react.default.createElement("div", null, /* @__PURE__ */ import_react.default.createElement("button", {
         onClick: () => this.state.active ? this.stopCounter() : this.startCounter()
       }, this.state.active ? "\u6682\u505C" : "\u5F00\u59CB"), /* @__PURE__ */ import_react.default.createElement("button", {
         onClick: () => this.resetCounter()
@@ -22621,19 +22633,26 @@
   };
   var counter_default = Counter;
 
+  // src/view/process.tsx
+  function Process() {
+    return /* @__PURE__ */ import_react2.default.createElement("div", null, /* @__PURE__ */ import_react2.default.createElement("div", null, "\u5DE5\u4F5C \u77ED\u4F11 \u957F\u4F11"), /* @__PURE__ */ import_react2.default.createElement("h2", null, "\u5DE5\u4F5C"), /* @__PURE__ */ import_react2.default.createElement(counter_default, {
+      minutes: 25
+    }), /* @__PURE__ */ import_react2.default.createElement("h2", null, "\u4F11\u606F"), /* @__PURE__ */ import_react2.default.createElement(counter_default, {
+      minutes: 5
+    }));
+  }
+
   // src/index.tsx
-  var App = class extends import_react2.default.Component {
+  var App = class extends import_react3.default.Component {
     render() {
-      return /* @__PURE__ */ import_react2.default.createElement("main", {
+      return /* @__PURE__ */ import_react3.default.createElement("main", {
         className: "wrapper"
-      }, /* @__PURE__ */ import_react2.default.createElement("h1", null, /* @__PURE__ */ import_react2.default.createElement("ruby", null, "\u756A\u8304", /* @__PURE__ */ import_react2.default.createElement("rt", null, "Pomodoro")), /* @__PURE__ */ import_react2.default.createElement("ruby", null, "\u5DE5\u4F5C\u6CD5", /* @__PURE__ */ import_react2.default.createElement("rt", null, "Technique"))), /* @__PURE__ */ import_react2.default.createElement(counter_default, {
-        minutes: 25
-      }));
+      }, /* @__PURE__ */ import_react3.default.createElement("h1", null, /* @__PURE__ */ import_react3.default.createElement("ruby", null, "\u756A\u8304", /* @__PURE__ */ import_react3.default.createElement("rt", null, "Pomodoro")), /* @__PURE__ */ import_react3.default.createElement("ruby", null, "\u5DE5\u4F5C\u6CD5", /* @__PURE__ */ import_react3.default.createElement("rt", null, "Technique"))), /* @__PURE__ */ import_react3.default.createElement(Process, null));
     }
   };
   var container = document.getElementById("root");
   var root = (0, import_client.createRoot)(container);
-  root.render(/* @__PURE__ */ import_react2.default.createElement(App, null));
+  root.render(/* @__PURE__ */ import_react3.default.createElement(import_react3.default.StrictMode, null, /* @__PURE__ */ import_react3.default.createElement(App, null)));
 })();
 /**
  * @license React
