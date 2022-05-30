@@ -1,0 +1,20 @@
+* {
+  box-sizing: content-box;
+}
+
+body {
+  margin: 0;
+  padding: 1rem;
+  font-family: '仓耳玄三03','微软雅黑','Roboto', sans-serif;
+  font-size: 1rem;
+  color: #333;
+  background-color: #fff;
+}
+
+main {
+  text-align: center;
+}
+
+button {
+  font-family: '仓耳玄三03';
+}
