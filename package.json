@@ -6,7 +6,7 @@
   "license": "MIT",
   "scripts": {
     "build": "esbuild ./src/index.tsx --bundle --outfile=./public/app.js",
-    "start": "yarn build && serve ./public"
+    "dev": "yarn build && serve ./public"
   },
   "dependencies": {
     "esbuild": "^0.14.42",

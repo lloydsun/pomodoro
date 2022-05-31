@@ -22593,6 +22593,7 @@
           });
         } else {
           this.resetCounter();
+          this.props.handler(this.props.nextPhase);
         }
       }
     }
@@ -22618,6 +22619,9 @@
     clear() {
       clearInterval(this.interval);
     }
+    componentWillUnmount() {
+      this.clear();
+    }
     render() {
       let remain_seconds = this.state.seconds;
       return /* @__PURE__ */ import_react.default.createElement("div", {
@@ -22637,16 +22641,48 @@
   var Process = class extends import_react2.default.Component {
     constructor(props) {
       super(props);
+      this.enterPhase = this.enterPhase.bind(this);
+      this.restBack = this.restBack.bind(this);
       this.state = {
-        phase: "work"
+        phase: 1,
+        pomodoro: 0
       };
     }
+    enterPhase(phase) {
+      this.setState({
+        phase,
+        pomodoro: this.state.pomodoro + 1
+      });
+    }
+    restBack(phase) {
+      this.setState({
+        phase
+      });
+    }
     render() {
-      return /* @__PURE__ */ import_react2.default.createElement("div", null, /* @__PURE__ */ import_react2.default.createElement("div", null, "\u5DE5\u4F5C \u77ED\u4F11 \u957F\u4F11"), /* @__PURE__ */ import_react2.default.createElement("h2", null, "\u5DE5\u4F5C"), /* @__PURE__ */ import_react2.default.createElement(counter_default, {
-        minutes: 25
-      }), /* @__PURE__ */ import_react2.default.createElement("h2", null, "\u4F11\u606F"), /* @__PURE__ */ import_react2.default.createElement(counter_default, {
-        minutes: 5
-      }));
+      let nextPhase = 2;
+      if (this.state.pomodoro > 0 && this.state.pomodoro % 4 === 0) {
+        nextPhase = 3;
+      }
+      if (this.state.phase === 1) {
+        return /* @__PURE__ */ import_react2.default.createElement("div", null, /* @__PURE__ */ import_react2.default.createElement("h2", null, "\u5DE5\u4F5C"), /* @__PURE__ */ import_react2.default.createElement(counter_default, {
+          minutes: 15,
+          handler: this.enterPhase,
+          nextPhase
+        }));
+      } else if (this.state.phase === 2) {
+        return /* @__PURE__ */ import_react2.default.createElement("div", null, /* @__PURE__ */ import_react2.default.createElement("h2", null, "\u77ED\u4F11"), /* @__PURE__ */ import_react2.default.createElement(counter_default, {
+          minutes: 5,
+          handler: this.restBack,
+          nextPhase: 1
+        }));
+      } else if (this.state.phase === 3) {
+        return /* @__PURE__ */ import_react2.default.createElement("div", null, /* @__PURE__ */ import_react2.default.createElement("h2", null, "\u957F\u4F11"), /* @__PURE__ */ import_react2.default.createElement(counter_default, {
+          minutes: 30,
+          handler: this.restBack,
+          nextPhase: 1
+        }));
+      }
     }
   };
 

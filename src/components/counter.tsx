@@ -4,10 +4,14 @@ import React from 'react'
 
 type startTime = {
   minutes: number,
+  handler: object,
+  nextPhase: number
 }
 
 type CounterProps = {
-  minutes: number
+  minutes: number,
+  handler?: object,
+  nextPhase: number
 }
 
 type CounterState = {
@@ -46,6 +50,7 @@ class Counter extends React.Component<CounterProps, CounterState> {
         })
       } else {
         this.resetCounter()
+        this.props.handler(this.props.nextPhase)
       }
     }
   }
@@ -74,6 +79,10 @@ class Counter extends React.Component<CounterProps, CounterState> {
 
   clear() {
     clearInterval(this.interval)
+  }
+
+  componentWillUnmount(): void {
+    this.clear()
   }
 
 
