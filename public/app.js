@@ -22634,13 +22634,21 @@
   var counter_default = Counter;
 
   // src/view/process.tsx
-  function Process() {
-    return /* @__PURE__ */ import_react2.default.createElement("div", null, /* @__PURE__ */ import_react2.default.createElement("div", null, "\u5DE5\u4F5C \u77ED\u4F11 \u957F\u4F11"), /* @__PURE__ */ import_react2.default.createElement("h2", null, "\u5DE5\u4F5C"), /* @__PURE__ */ import_react2.default.createElement(counter_default, {
-      minutes: 25
-    }), /* @__PURE__ */ import_react2.default.createElement("h2", null, "\u4F11\u606F"), /* @__PURE__ */ import_react2.default.createElement(counter_default, {
-      minutes: 5
-    }));
-  }
+  var Process = class extends import_react2.default.Component {
+    constructor(props) {
+      super(props);
+      this.state = {
+        phase: "work"
+      };
+    }
+    render() {
+      return /* @__PURE__ */ import_react2.default.createElement("div", null, /* @__PURE__ */ import_react2.default.createElement("div", null, "\u5DE5\u4F5C \u77ED\u4F11 \u957F\u4F11"), /* @__PURE__ */ import_react2.default.createElement("h2", null, "\u5DE5\u4F5C"), /* @__PURE__ */ import_react2.default.createElement(counter_default, {
+        minutes: 25
+      }), /* @__PURE__ */ import_react2.default.createElement("h2", null, "\u4F11\u606F"), /* @__PURE__ */ import_react2.default.createElement(counter_default, {
+        minutes: 5
+      }));
+    }
+  };
 
   // src/index.tsx
   var App = class extends import_react3.default.Component {
