@@ -2,15 +2,9 @@ import React from 'react'
 
 // create a timer component that count down and can stop and resume the counter
 
-type startTime = {
-  minutes: number,
-  handler: object,
-  nextPhase: number
-}
-
 type CounterProps = {
   minutes: number,
-  handler?: object,
+  handler: object,
   nextPhase: number
 }
 
@@ -22,14 +16,24 @@ type CounterState = {
 
 class Counter extends React.Component<CounterProps, CounterState> {
   interval: number
-  constructor(props: startTime) {
+  constructor(props: CounterProps) {
     super(props)
-    const init_seconds = props.minutes * 60
+    // let init_seconds = props.minutes * 120
     this.state = {
-      init_seconds: init_seconds,
-      seconds: init_seconds,
+      init_seconds: this.props.minutes * 60,
+      seconds: this.props.minutes * 60,
       active: false
     }
+  }
+
+  componentDidMount() {
+    this.updateTimer(this.props.minutes)
+  }
+
+  updateTimer(minutes: number) {
+    this.setState({
+      seconds: minutes * 60
+    })
   }
 
   secondsToMinutes(seconds: number) {
@@ -88,7 +92,7 @@ class Counter extends React.Component<CounterProps, CounterState> {
 
   render() {
     let remain_seconds = this.state.seconds
-
+    
     return (
       <div className='counter-wrapper'>
         <div className='counter'>{this.secondsToMinutes(remain_seconds)}</div>

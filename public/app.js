@@ -22569,12 +22569,19 @@
   var Counter = class extends import_react.default.Component {
     constructor(props) {
       super(props);
-      const init_seconds = props.minutes * 60;
       this.state = {
-        init_seconds,
-        seconds: init_seconds,
+        init_seconds: this.props.minutes * 60,
+        seconds: this.props.minutes * 60,
         active: false
       };
+    }
+    componentDidMount() {
+      this.updateTimer(this.props.minutes);
+    }
+    updateTimer(minutes) {
+      this.setState({
+        seconds: minutes * 60
+      });
     }
     secondsToMinutes(seconds) {
       let minutes = Math.floor(seconds / 60);
@@ -22664,25 +22671,19 @@
       if (this.state.pomodoro > 0 && this.state.pomodoro % 4 === 0) {
         nextPhase = 3;
       }
-      if (this.state.phase === 1) {
-        return /* @__PURE__ */ import_react2.default.createElement("div", null, /* @__PURE__ */ import_react2.default.createElement("h2", null, "\u5DE5\u4F5C"), /* @__PURE__ */ import_react2.default.createElement(counter_default, {
-          minutes: 15,
-          handler: this.enterPhase,
-          nextPhase
-        }));
-      } else if (this.state.phase === 2) {
-        return /* @__PURE__ */ import_react2.default.createElement("div", null, /* @__PURE__ */ import_react2.default.createElement("h2", null, "\u77ED\u4F11"), /* @__PURE__ */ import_react2.default.createElement(counter_default, {
-          minutes: 5,
-          handler: this.restBack,
-          nextPhase: 1
-        }));
-      } else if (this.state.phase === 3) {
-        return /* @__PURE__ */ import_react2.default.createElement("div", null, /* @__PURE__ */ import_react2.default.createElement("h2", null, "\u957F\u4F11"), /* @__PURE__ */ import_react2.default.createElement(counter_default, {
-          minutes: 30,
-          handler: this.restBack,
-          nextPhase: 1
-        }));
-      }
+      return /* @__PURE__ */ import_react2.default.createElement("div", null, /* @__PURE__ */ import_react2.default.createElement("h2", null, "\u5DE5\u4F5C"), /* @__PURE__ */ import_react2.default.createElement(counter_default, {
+        minutes: 25,
+        handler: this.enterPhase,
+        nextPhase
+      }), /* @__PURE__ */ import_react2.default.createElement("h2", null, "\u77ED\u4F11"), /* @__PURE__ */ import_react2.default.createElement(counter_default, {
+        minutes: 5,
+        handler: this.restBack,
+        nextPhase: 1
+      }), /* @__PURE__ */ import_react2.default.createElement("h2", null, "\u957F\u4F11"), /* @__PURE__ */ import_react2.default.createElement(counter_default, {
+        minutes: 30,
+        handler: this.restBack,
+        nextPhase: 1
+      }));
     }
   };
 

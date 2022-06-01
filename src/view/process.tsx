@@ -1,8 +1,9 @@
 import React from 'react'
 import Counter from '../components/counter'
+import NCounter from '../components/Counter/Counter'
 
 interface FSM {
-  phase?:1|2|3
+  phase?: 1 | 2 | 3
 }
 
 interface IProps {
@@ -15,34 +16,33 @@ enum Phase {
 }
 
 interface ProcessState {
-  phase:Phase,
-  pomodoro:number,
+  phase: Phase,
+  pomodoro: number,
 }
 
 export default class Process extends React.Component<FSM, ProcessState> {
-  constructor(props:IProps) {
+  constructor(props: IProps) {
     super(props)
     this.enterPhase = this.enterPhase.bind(this)
     this.restBack = this.restBack.bind(this)
     this.state = {
       phase: 1,
-      pomodoro:0
+      pomodoro: 0
     }
   }
 
-  enterPhase(phase:Phase) {
+  enterPhase(phase: Phase) {
     this.setState({
       phase: phase,
       pomodoro: this.state.pomodoro + 1
     })
   }
 
-  restBack(phase:Phase) {
+  restBack(phase: Phase) {
     this.setState({
       phase: phase,
     })
   }
-
 
   render() {
     let nextPhase = 2
@@ -50,29 +50,17 @@ export default class Process extends React.Component<FSM, ProcessState> {
       nextPhase = 3
     }
 
+    return (
+      <div>
+        <h2>工作</h2>
+        <Counter minutes={25} handler={this.enterPhase} nextPhase={nextPhase}></Counter>
+        <h2>短休</h2>
+        <Counter minutes={5} handler={this.restBack} nextPhase={1}></Counter>
+        <h2>长休</h2>
+        <Counter minutes={30} handler={this.restBack} nextPhase={1}></Counter>
+        {/* <NCounter minutes={0.05}/> */}
+      </div>
+    )
 
-    if (this.state.phase === 1) {
-      return (
-        <div>
-          <h2>工作</h2>
-          <Counter minutes={15} handler={this.enterPhase} nextPhase={nextPhase}></Counter>
-        </div>
-      )
-    } else if(this.state.phase === 2) {
-      return (
-        <div>
-          <h2>短休</h2>
-          <Counter minutes={5} handler={this.restBack} nextPhase={1}></Counter>
-        </div>
-      )
-    }else if(this.state.phase === 3){
-      return (
-        <div>
-          <h2>长休</h2>
-          <Counter minutes={30} handler={this.restBack} nextPhase={1}></Counter>
-        </div>
-      )
-    }
-    
   }
 }
