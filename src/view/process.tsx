@@ -14,7 +14,12 @@ enum Phase {
   longRest = 3
 }
 
-export default class Process extends React.Component<FSM> {
+interface ProcessState {
+  phase:Phase,
+  pomodoro:number,
+}
+
+export default class Process extends React.Component<FSM, ProcessState> {
   constructor(props:IProps) {
     super(props)
     this.enterPhase = this.enterPhase.bind(this)
